@@ -6,7 +6,7 @@ const colors = require("colors");
 const connectDb = require("./config/connectDb");
 // config dot env file
 dotenv.config();
-// database Call
+// database Call here
 connectDb();
 //rest object
 const app = express();
