@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const transactionSchema = new mongoose.Schema(
   {
     amount: {
-      type: number,
+      type: Number,
       required: [true, "amount is required"],
     },
     category: {
@@ -25,4 +25,6 @@ const transactionSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const transactionModel = mongoose.model("transactions", transactionModel);
+const transactionModel = mongoose.model("transactions", transactionSchema);
+
+module.exports = transactionModel;

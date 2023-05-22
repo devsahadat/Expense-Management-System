@@ -16,8 +16,10 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 // routes
+//user routes
 app.use("/api/v1/users", require("./routes/userRoute"));
-
+//transactions routes
+app.use("/api/v1/transactions", require("./routes/transactionRoutes"));
 // port
 const PORT = 8080 || process.env.PORT;
 
