@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Modal, Select, message } from "antd";
+import React, { useState, useEffect } from "react";
+import { Modal, Select, Table, message } from "antd";
 import Layout from "../components/Layout/Layout";
 import Form from "antd/es/form/Form";
 import Input from "antd/es/input/Input";
@@ -9,6 +9,56 @@ import Spinner from "../components/Spinner";
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [allTransaction, setAllTransaction] = useState([]);
+
+  //table Data
+  const columns = [
+    {
+      title: "Date",
+      dataIndex: "date",
+    },
+    {
+      title: "Amount",
+      dataIndex: "amount",
+    },
+    {
+      title: "Type",
+      dataIndex: "type",
+    },
+    {
+      title: "Category",
+      dataIndex: "category",
+    },
+    {
+      title: "Reference",
+      dataIndex: "reference",
+    },
+    {
+      title: "Actions",
+    },
+  ];
+
+  //get all transactions
+  const getAllTransactions = async () => {
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      setLoading(true);
+      const res = await axios.post("/transactions/get-transaction", {
+        userid: user._id,
+      });
+      setLoading(false);
+      setAllTransaction(res.data);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+      message.error("Fetch issue with Transaction");
+    }
+  };
+
+  //useEffect Hook
+  useEffect(() => {
+    getAllTransactions();
+  }, []);
 
   //form handling
   const handleSubmit = async (values) => {
@@ -28,8 +78,8 @@ const HomePage = () => {
     }
   };
   return (
-      <Layout>
-          {loading && <Spinner/>}
+    <Layout>
+      {loading && <Spinner />}
       <div className="filters">
         <div>range filter</div>
         <button
@@ -39,7 +89,9 @@ const HomePage = () => {
           Add new
         </button>
       </div>
-      <div className="content"></div>
+          <div className="content">
+              <Table columns={columns} dataSource={allTransaction} />
+      </div>
       <Modal
         title="Add Transaction"
         open={showModal}
