@@ -13,6 +13,7 @@ const HomePage = () => {
   const [allTransaction, setAllTransaction] = useState([]);
   const [frequency, setFrequency] = useState("7");
   const [selectedDate, setSelectedDate] = useState([]);
+  const [type, setType] = useState("all");
   //table Data
   const columns = [
     {
@@ -52,6 +53,7 @@ const HomePage = () => {
           userid: user._id,
           frequency,
           selectedDate,
+          type,
         });
         setLoading(false);
         setAllTransaction(res.data);
@@ -62,7 +64,7 @@ const HomePage = () => {
       }
     };
     getAllTransactions();
-  }, [frequency, selectedDate]);
+  }, [frequency, selectedDate,type]);
 
   //form handling
   const handleSubmit = async (values) => {
@@ -86,21 +88,28 @@ const HomePage = () => {
       <div className="filters">
         <div>
           <h6>Select Frequency</h6>
-          <Select value={frequency} onChange={(value) => setFrequency(value)}>
+          <Select value={frequency} onChange={(values) => setFrequency(values)}>
             <Select.Option value="7">Last 1 Week</Select.Option>
             <Select.Option value="30">Last 1 Month</Select.Option>
             <Select.Option value="365">Last 1 Year</Select.Option>
             <Select.Option value="custom">Custom</Select.Option>
           </Select>
           {frequency === "custom" && (
-              <RangePicker
+            <RangePicker
               value={selectedDate}
               onChange={(values) => setSelectedDate(values)}
-              />
-                  )}
+            />
+          )}
         </div>
-              {loading && <Spinner />}
-                  
+        <div>
+          <h6>Select Type</h6>
+          <Select value={type} onChange={(values) => setType(values)}>
+            <Select.Option value="all">aLL</Select.Option>
+            <Select.Option value="income">Income</Select.Option>
+            <Select.Option value="expense">Expense</Select.Option>
+          </Select>
+        </div>
+
         <button
           className="btn btn-success1 p-2"
           onClick={() => setShowModal(true)}
@@ -109,6 +118,7 @@ const HomePage = () => {
         </button>
       </div>
       <div className="content p-2">
+        <div className="m-2">{loading && <Spinner />}</div>
         <Table columns={columns} dataSource={allTransaction} />
       </div>
       <Modal
