@@ -1,6 +1,17 @@
 import React from "react";
 import { Progress } from "antd";
 
+const categories = [
+  "salary",
+  "tip",
+  "project",
+  "food",
+  "movie",
+  "bills",
+  "medical",
+  "fee",
+  "tax",
+];
 //Total Transactions
 const Analytics = ({ allTransaction }) => {
   const totalTransaction = allTransaction.length;
@@ -96,6 +107,68 @@ const Analytics = ({ allTransaction }) => {
                   percent={totalExpenseTurnOverPercent.toFixed(0)}
                 />
               </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div className="d-flex mt-3 gap-4">
+            <div className="card col-md-4">
+              <div className="card-header">
+                <h5>Categorywise Income</h5>
+              </div>
+              {categories.map((category) => {
+                const amount = allTransaction
+                  .filter(
+                    (transaction) =>
+                      transaction.type === "income" &&
+                      transaction.category === category
+                  )
+                  .reduce((acc, transaction) => acc + transaction.amount, 0);
+                return (
+                  amount > 0 && (
+                    <div className="card catAnalytics">
+                      <div className="card-body">
+                        <h5>{category}</h5>
+                        <Progress
+                          percent={(
+                            (amount / totalIncomeTurnOver) *
+                            100
+                          ).toFixed(0)}
+                        />
+                      </div>
+                    </div>
+                  )
+                );
+              })}
+            </div>
+            <div className="card col-md-4">
+              <div className="card-header">
+                <h5>Categorywise Expense</h5>
+              </div>
+              {categories.map((category) => {
+                const amount = allTransaction
+                  .filter(
+                    (transaction) =>
+                      transaction.type === "expense" &&
+                      transaction.category === category
+                  )
+                  .reduce((acc, transaction) => acc + transaction.amount, 0);
+                return (
+                  amount > 0 && (
+                    <div className="card catAnalytics">
+                      <div className="card-body">
+                        <h5>{category}</h5>
+                        <Progress
+                          percent={(
+                            (amount / totalExpenseTurnOver) *
+                            100
+                          ).toFixed(0)}
+                        />
+                      </div>
+                    </div>
+                  )
+                );
+              })}
             </div>
           </div>
         </div>

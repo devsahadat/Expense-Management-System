@@ -5,7 +5,7 @@
   
 }
 .content{
-  height: 80vh;
+  height: 100vh;
 }
 
 .navbar{
@@ -110,3 +110,6 @@ box-shadow: rgba(123, 124, 123, 0.3) 0px 4px 12px;
   color: #00b894 !important;
 }
 
+.catAnalytics{
+  margin: 3px 15px;
+}
