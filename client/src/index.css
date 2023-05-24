@@ -67,3 +67,8 @@
 .anticon{
   color: #00b894;
 }
+
+
+.ant-table-thead .ant-table-cell{
+  background-color: #a9f5e6 !important;
+}
