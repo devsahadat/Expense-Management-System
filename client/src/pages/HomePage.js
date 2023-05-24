@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Select, Table, message, DatePicker, Space } from "antd";
+import { UnorderedListOutlined, AreaChartOutlined } from "@ant-design/icons";
 import Layout from "../components/Layout/Layout";
 import Form from "antd/es/form/Form";
 import Input from "antd/es/input/Input";
 import axios from "axios";
 import Spinner from "../components/Spinner";
 import moment from "moment";
+import Analytics from "../components/Layout/Analytics";
 const { RangePicker } = DatePicker;
 const HomePage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -14,6 +16,7 @@ const HomePage = () => {
   const [frequency, setFrequency] = useState("7");
   const [selectedDate, setSelectedDate] = useState([]);
   const [type, setType] = useState("all");
+  const [viewData, setViewData] = useState("table");
   //table Data
   const columns = [
     {
@@ -64,7 +67,7 @@ const HomePage = () => {
       }
     };
     getAllTransactions();
-  }, [frequency, selectedDate,type]);
+  }, [frequency, selectedDate, type]);
 
   //form handling
   const handleSubmit = async (values) => {
@@ -109,7 +112,20 @@ const HomePage = () => {
             <Select.Option value="expense">Expense</Select.Option>
           </Select>
         </div>
-
+        <div className="switch-icons">
+          <UnorderedListOutlined
+            className={`mx-2 ${
+              viewData === "table" ? "active-icon" : "inactive-icon"
+            }`}
+            onClick={() => setViewData("table")}
+          />
+          <AreaChartOutlined
+            className={`mx-2 ${
+              viewData === "analytics" ? "active-icon" : "inactive-icon"
+            }`}
+            onClick={() => setViewData("analytics")}
+          />
+        </div>
         <button
           className="btn btn-success1 p-2"
           onClick={() => setShowModal(true)}
@@ -117,9 +133,15 @@ const HomePage = () => {
           Add new
         </button>
       </div>
+
+      {/* Table here */}
       <div className="content p-2">
         <div className="m-2">{loading && <Spinner />}</div>
-        <Table columns={columns} dataSource={allTransaction} />
+        {viewData === "table" ? (
+          <Table columns={columns} dataSource={allTransaction} />
+        ) : (
+          <Analytics allTransaction={allTransaction} />
+        )}
       </div>
       <Modal
         title="Add Transaction"
