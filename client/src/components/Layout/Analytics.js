@@ -47,7 +47,7 @@ const Analytics = ({ allTransaction }) => {
 
   return (
     <>
-      <div className="row m-3">
+      <div className="row d-flex justify-content-center m-3">
         <div className="col-md-4">
           <div className="card">
             <div className="card-header">
@@ -111,7 +111,7 @@ const Analytics = ({ allTransaction }) => {
           </div>
         </div>
         <div>
-          <div className="d-flex mt-3 gap-4">
+          <div className="d-flex justify-content-center mt-3 gap-4">
             <div className="card col-md-4">
               <div className="card-header">
                 <h5>Categorywise Income</h5>

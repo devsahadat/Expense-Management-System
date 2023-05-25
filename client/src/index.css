@@ -15,8 +15,25 @@
 .register-page{
   display: flex;
   align-items: center;
+  background-color: #ffffff3b;
   justify-content: center;
-  height: 80vh;
+  height: 100vh;
+}
+.btn{
+ background-color: #00b894; 
+ color: #FFFFFF;
+}
+.btn:hover{
+ border: 1px solid #00b894;
+}
+
+.logreg{
+  max-height: 600px;
+  max-width: 600px;
+  padding: 100px;
+  border-radius: 20px;
+  background-color: #faf9f991;
+  box-shadow: rgba(123, 124, 123, 0.3) 0px 4px 12px;
 }
 
 .filters {
@@ -113,3 +130,4 @@ box-shadow: rgba(123, 124, 123, 0.3) 0px 4px 12px;
 .catAnalytics{
   margin: 3px 15px;
 }
+

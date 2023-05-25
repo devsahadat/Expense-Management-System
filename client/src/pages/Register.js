@@ -28,24 +28,28 @@ const Register = () => {
   },[navigate])
   return (
     <>
-          <div className="register-page">
-              {loading && <Spinner/>}
-        <Form layout="vertical" onFinish={submitHandler}>
-          <h1>Register Form</h1>
-          <Form.Item label="Name" name="name">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Email" name="email">
-            <Input type="email" />
-          </Form.Item>
-          <Form.Item label="Password" name="password">
-            <Input type="password" />
-          </Form.Item>
-          <div className="d-flex justify-content-between">
-            <Link to="/login">Already Register ? Click here to Login</Link>
-            <button className="btn btn-success">Register</button>
-          </div>
-        </Form>
+      <div className="register-page">
+        {loading && <Spinner />}
+        <div className="logreg">
+          <Form layout="vertical" onFinish={submitHandler}>
+            <h1 style={{ color: "#00b894" }}>Register Please</h1>
+            <Form.Item label="Name" name="name">
+              <Input />
+            </Form.Item>
+            <Form.Item label="Email" name="email">
+              <Input type="email" />
+            </Form.Item>
+            <Form.Item label="Password" name="password">
+              <Input type="password" />
+            </Form.Item>
+            <div className="d-flex flex-column">
+              <button className="btn mb-2">Register</button>
+              <Link to="/login" style={{ color: "#00b894" }}>
+                Already Register ? Click here to Login
+              </Link>
+            </div>
+          </Form>
+        </div>
       </div>
     </>
   );

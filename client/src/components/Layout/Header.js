@@ -44,7 +44,7 @@ const Header = () => {
               </li>
               <li className="nav-item">
                 <button
-                  className="btn btn-light text-success fs-6"
+                  className="btn btn-light fs-6"
                   onClick={logOutHandler}
                 >
                   Logout
